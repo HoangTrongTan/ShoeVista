@@ -2,6 +2,49 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import HorSlider from "./HorSlider";
 
+const ProductsForBestSeller = [
+  {
+    img: "/GenInfo/adidas.jpg",
+    title: "Adidas",
+    to: "/search/adidas",
+    sellPrice: "$15",
+    discount: "$1",
+    mrp: "test",
+    category: "Men",
+    brand: "adidas",
+  },
+  {
+    img: "/GenInfo/nike.png",
+    title: "Nike",
+    to: "/search/nike",
+    sellPrice: "$15",
+    discount: "$1",
+    mrp: "test",
+    category: "Men",
+    brand: "nike",
+  },
+  {
+    img: "/GenInfo/skechers.jpg",
+    title: "Skechers",
+    to: "/search/skechers",
+    sellPrice: "$15",
+    discount: "$1",
+    mrp: "test",
+    category: "Men",
+    brand: "skechers",
+  },
+  {
+    img: "/GenInfo/puma.jpg",
+    title: "Puma",
+    to: "/search/puma",
+    sellPrice: "$15",
+    discount: "$1",
+    mrp: "test",
+    category: "Men",
+    brand: "puma",
+  },
+];
+
 const ShopBy = ({ filter, title }) => {
   const [products, setProducts] = useState([]);
   const [error, setError] = useState(null);
@@ -15,6 +58,11 @@ const ShopBy = ({ filter, title }) => {
           `${import.meta.env.VITE_BASE_URL}/api/filter/${filter}`
         );
         if (isMounted) {
+          if (!res.data.length && filter === "bestSellers") {
+            setProducts(ProductsForBestSeller);
+            setLoading(false);
+            return;
+          }
           setProducts(res.data);
           setLoading(false);
         }
